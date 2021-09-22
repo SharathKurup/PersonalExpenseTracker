@@ -22,6 +22,9 @@ function Home({ navigation }) {
     ToastAndroid.show("Work In Progress.", ToastAndroid.SHORT);
     Alert.alert("Expense Tracker", "Work In Progress.");
   };
+  const GetExpensesTest = () => {
+    Service.GetExpensesTest();
+  };
 
   return (
     <View
@@ -40,16 +43,17 @@ function Home({ navigation }) {
         text="View Expenses"
         buttonClick={() => navigation.navigate("View Expenses")}
       />
-      <TouchableOpacityButton
+      {/* <TouchableOpacityButton
         text="Delete Expense"
         buttonClick={() => navigation.navigate("Delete Expense")}
-      />
+      /> */}
       <TextComponent text="Admin Tools" />
       <TouchableOpacityButton
         text="Reset Expenses"
         buttonClick={ResetExpenses}
       />
       <TouchableOpacityButton text="Backup" buttonClick={BackupExpenses} />
+      {/* <TouchableOpacityButton text="Test Data" buttonClick={GetExpensesTest} /> */}
     </View>
   );
 }

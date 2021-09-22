@@ -78,10 +78,10 @@ function CreateExpense(
       function (tx, res) {
         //console.log("Results ", res.rowsAffected);
         if (res.rowsAffected > 0) {
-          console.log("Success");
+          console.log("Create Expense Success");
           callback(res.rowsAffected); //TODO::Implement promise to return row(success).
         } else {
-          console.log("Fail");
+          console.log("Create Expense Fail");
         }
       },
       function (tx, err) {
@@ -102,10 +102,10 @@ function DeleteExpense(ExpenseID, callback) {
       function (tx, res) {
         //console.log("Results ", res.rowsAffected);
         if (res.rowsAffected > 0) {
-          console.log("Success");
+          console.log("Delete Success");
           callback(res.rowsAffected); //TODO::Implement promise to return row(success).
         } else {
-          console.log("Fail");
+          console.log("Delete Fail");
         }
       },
       function (tx, err) {
@@ -130,12 +130,27 @@ function GetExpenses(setAppState) {
   });
 }
 
+function GetExpensesTest() {
+  var db = CreateOpenDB();
+  let TbSelectQuery = "SELECT rowid FROM " + CONSTANT.TABLENAME;
+  db.transaction((tx) => {
+    tx.executeSql(TbSelectQuery, [], (tx, results) => {
+      var temp = [];
+      for (let i = 0; i < results.rows.length; ++i)
+        temp.push(results.rows.item(i));
+
+      console.log(temp);
+    });
+  });
+}
+
 const exportList = {
   CreateTable,
   CreateExpense,
   GetExpenses,
   DropTable,
   DeleteExpense,
+  GetExpensesTest,
 };
 
 export default exportList;
