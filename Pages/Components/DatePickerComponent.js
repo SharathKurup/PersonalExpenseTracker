@@ -28,7 +28,7 @@ function DatePickerComponent(props) {
       <TextInputComponent
         placeholder="Select Date"
         editable={false}
-        value={props.Date.toString()}
+        value={new Date(props.Date).toDateString()}
         style={styles.textInput}
       />
       <Fontisto

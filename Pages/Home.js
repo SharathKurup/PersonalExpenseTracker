@@ -1,10 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View, ToastAndroid, Alert } from "react-native";
 import TouchableOpacityButton from "./Components/TouchableOpacityButton";
 import TextComponent from "./Components/TextComponent";
 import Service from "../Services/Service";
+import API from "../Services/API";
+import * as CONSTANT from "./../Constants";
 
 function Home({ navigation }) {
+  const [appState, setAppState] = useState({
+    loading: null,
+    data: null,
+    isRefresh: false,
+  });
   useEffect(() => {
     Service.CreateTable();
   }, []);
@@ -16,14 +23,12 @@ function Home({ navigation }) {
     ToastAndroid.show("Expense Reset Succesfull.", ToastAndroid.LONG);
   };
   const BackupExpenses = () => {
-    Service.DropTable();
-    Service.CreateTable();
-
-    ToastAndroid.show("Work In Progress.", ToastAndroid.SHORT);
-    Alert.alert("Expense Tracker", "Work In Progress.");
-  };
-  const GetExpensesTest = () => {
-    Service.GetExpensesTest();
+    Service.GetExpenses(setAppState, CONSTANT.BACKUP);
+    if (appState.data) {
+      Service.BackupExpenses(appState.data);
+    }
+    // ToastAndroid.show("Work In Progress.", ToastAndroid.SHORT);
+    // Alert.alert("Expense Tracker", "Work In Progress.");
   };
 
   return (
@@ -53,7 +58,6 @@ function Home({ navigation }) {
         buttonClick={ResetExpenses}
       />
       <TouchableOpacityButton text="Backup" buttonClick={BackupExpenses} />
-      {/* <TouchableOpacityButton text="Test Data" buttonClick={GetExpensesTest} /> */}
     </View>
   );
 }

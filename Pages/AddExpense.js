@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, ToastAndroid } from "react-native";
+import { Alert, SafeAreaView, ToastAndroid } from "react-native";
 import TextInputComponent from "./Components/TextInputComponent";
 import TouchableOpacityButton from "./Components/TouchableOpacityButton";
 import DatePickerComponent from "./Components/DatePickerComponent";
@@ -13,6 +13,7 @@ function AddExpense() {
     setDate(new Date());
     setExpense("");
     setDescription("");
+    //Alert.alert("Test", d.toDateString());
   };
 
   const showSuccessMessage = () => {

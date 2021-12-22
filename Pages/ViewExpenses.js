@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Service from "../Services/Service";
 import TextComponent from "./Components/TextComponent";
+import * as CONSTANT from "./../Constants";
 
 function ViewExpenses({ navigation }) {
   const [appState, setAppState] = useState({
@@ -25,7 +26,7 @@ function ViewExpenses({ navigation }) {
   }, []);
 
   const GetExpenses = () => {
-    Service.GetExpenses(setAppState);
+    Service.GetExpenses(setAppState, CONSTANT.GRID);
   };
 
   const showSuccessMessage = () => {
@@ -78,10 +79,12 @@ function ViewExpenses({ navigation }) {
         key={item.ExpenseID}
         style={{ backgroundColor: "white", padding: 20 }}
       >
-        {/* <Text>Id: {item.ExpenseID}</Text> */}
-        <Text>Date: {item.ExpenseDate}</Text>
+        <Text>Id: {item.ExpenseID}</Text>
+        <Text>Date: {new Date(item.ExpenseDate).toDateString()}</Text>
         <Text>Description: {item.ExpenseDescription}</Text>
         <Text>Amount: {item.ExpenseAmount}</Text>
+        <Text>Created By: {item.ExpenseCreatedBy}</Text>
+        <Text>Backed Up: {item.isBackUp}</Text>
         <View
           style={[
             styles.container,
